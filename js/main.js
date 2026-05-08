@@ -113,7 +113,7 @@ function iniciarJogo() {
         cheio: 'Dois ingredientes chegam! <br> Agora é hora de misturar.',
         temperoSal: 'Sal… os sabores <br> vão brilhar!',
         temperoPimenta: 'Pimenta! Prepara-te <br> para a velocidade...',
-        temporoOregaos: 'Orégãos… vai ficar <br> tudo mais suave.',
+        temporoOregaos: 'Oregãos… vai ficar <br> tudo mais suave.',
         misturar: 'Devagar… deixa <br> os sabores <br> encontrarem-se.',
         misturarPimenta: 'É agora! <br> Deixa explodir os sabores!',
         misturarOregaos: 'Devagar… <br> com calma e suavidade.',
