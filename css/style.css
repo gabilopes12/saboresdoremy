@@ -1,0 +1,796 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.secao-escondida {
+    display: none !important;
+}
+
+section {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#secao-galeria {
+    position: absolute;
+    inset: 0;
+    overflow-y: scroll;
+    height: 100%;
+}
+
+.azulejos {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background-image: url('../images/fundo.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.bancada {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 82%;
+}
+
+/* Barra temperos */
+.barra-temperos {
+    position: absolute;
+    left: 40px;
+    top: 22%;
+    transform: translateY(-50%);
+    /* background-color: #8B3A2A; */
+    background-color: #EF7D2C;
+    border-radius: 30px;
+    padding: 12px 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tempero img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    cursor: grab;
+}
+
+/* Colher */
+.btn-colher {
+    position: absolute;
+    left: 310px;
+    top: 56%;
+    transform: translateY(-50%);
+    width: 116px;
+    height: 200px;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.btn-colher:disabled {
+    cursor: default;
+}
+
+.btn-colher img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.btn-colher:not(:disabled):hover img {
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 16px rgba(255, 255, 255, 0.5));
+    transition: filter 0.2s ease;
+}
+
+.btn-colher img {
+    transition: filter 0.2s ease;
+}
+
+/* Panela */
+.panela-container {
+    position: absolute;
+    bottom: 145px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.panela {
+    position: relative;
+    width: 420px;
+    overflow: visible;
+}
+
+.panela img {
+    display: block;
+}
+
+.panela > img:first-child {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+}
+
+#canvas-panela {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 75%;
+    border-radius: 50%;
+}
+
+.video-puff {
+    position: absolute;
+    top: 60% !important;       /* era 50%, agora mais baixo */
+    left: 50% !important;
+    width: 140% !important;
+    height: 140% !important;
+    transform: translate(-50%, -50%);
+    border-radius: 0 !important;
+    object-fit: contain;
+    z-index: 20;
+}
+
+/* Cursor colher ativo na panela */
+.panela-colher-ativa {
+    cursor: url('images/botoes/cursor-colher.png') 16 16, auto;
+}
+
+/* Botões */
+.botoes {
+    position: absolute;
+    right: 360px;
+    top: 63%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn-guardar, .btn-limpar {
+    width: 50px;
+    height: 50px;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.btn-guardar img, .btn-limpar img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Remy */
+.remy-container {
+    position: absolute;
+    right: 45px;
+    top: 32%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0;
+}
+
+.balao-container {
+    position: relative;
+    width: 290px;
+}
+
+.balao-img {
+    width: 100%;
+}
+
+.balao-texto {
+    position: absolute;
+    top: 43%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 15px;
+    text-align: center;
+    color: #3C282A;
+    width: 80%;
+}
+
+#remy {
+    width: 95px;
+    position: absolute;
+    bottom: -15px;
+    right: -12px;
+}
+
+/* Carrossel */
+.carrossel-container {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.carrossel {
+    background-color: #EF7D2C;
+    border-radius: 30px;
+    padding: 4px 20px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.ingrediente {
+    position: relative;
+    width: 85px;
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ingrediente img {
+    position: relative;
+    width: 79px;
+    height: 79px;
+    object-fit: contain;
+    cursor: grab;
+    z-index: 1;
+}
+
+.ingredienteM {
+    width: 60px !important;
+    height: 60px !important;
+}
+
+.ingredienteB {
+    width: 70px !important;
+    height: 70px !important;
+}
+
+.ingrediente::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/mancha.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.tempero {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tempero::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/mancha.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.tempero img {
+    position: relative;
+    width: 79px;
+    height: 79px;
+    object-fit: contain;
+    cursor: grab;
+    z-index: 1;
+}
+
+.seta-placeholder {
+    width: 32px;
+    height: 32px;
+}
+
+/* Seta direita do carrossel */
+.seta-carrossel-direita {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    cursor: pointer;
+    margin-left: 8px;
+    flex-shrink: 0;
+}
+
+.seta-carrossel-esquerda {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-right: 8px;
+    transform: scaleX(-1); /* espelha a seta para apontar à esquerda */
+    visibility: hidden;    /* escondida no início (já estamos na pág. 1) */
+}
+
+/* Seta inferior galeria */
+.seta-subir {
+    position: absolute;
+    top: 5px;
+    left: 48%;
+    transform: translateX(-50%) rotate(180deg);
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    cursor: pointer;
+    visibility: hidden;
+    transition: transform 0.2s ease;
+}
+
+.seta-subir:hover {
+    transform: translateX(-50%) rotate(180deg) scale(1.15);
+}
+
+#hitbox-panela {
+    position: absolute;
+    top: 10%;
+    left: 15%;
+    width: 70%;
+    height: 72%;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+#ingredientes-na-panela {
+    position: absolute;
+    top: 10%;
+    left: 15%;
+    width: 70%;
+    height: 72%;
+    border-radius: 50%;
+    z-index: 9;
+    overflow: hidden;
+}
+
+.ingrediente-caido {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    transform: translate(-50%, -50%);
+}
+
+.escondido {
+    display: none;
+}
+
+.video-animacao {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    width: 150%;
+    height: 150%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.imagem-combinacao {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+    border-radius: 50%;
+    z-index: 19;
+}
+
+/* Fade in geral da página vindo do branco */
+@keyframes fadeInFromWhite {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* ── Animações de entrada ── */
+@keyframes slideFromLeft {
+    from { transform: translateX(-200px); opacity: 0; }
+    to   { transform: translateX(0);      opacity: 1; }
+}
+
+@keyframes slideFromBottom {
+    from { transform: translateX(-50%) translateY(200px); opacity: 0; }
+    to   { transform: translateX(-50%) translateY(0);     opacity: 1; }
+}
+
+@keyframes slideFromBottomSimple {
+    from { transform: translateY(200px); opacity: 0; }
+    to   { transform: translateY(0);     opacity: 1; }
+}
+
+@keyframes slideFromRight {
+    from { transform: translateY(-50%) translateX(200px); opacity: 0; }
+    to   { transform: translateY(-50%) translateX(0);     opacity: 1; }
+}
+
+@keyframes slideFromBottomSeta {
+    from { transform: translateX(-50%) translateY(100px); opacity: 0; }
+    to   { transform: translateX(-50%) translateY(0);     opacity: 1; }
+}
+
+@keyframes slideFromRightSeta {
+    from { transform: translateY(0) translateX(100px); opacity: 0; }
+    to   { transform: translateY(0) translateX(0);     opacity: 1; }
+}
+
+/* Barra de temperos — vem da esquerda */
+.barra-temperos {
+    animation: slideFromLeft 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+
+/* Carrossel — vem de baixo */
+.carrossel-container {
+    animation: slideFromBottom 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+}
+
+/* Seta da galeria — vem de baixo */
+.seta-galeria {
+    animation: slideFromBottomSeta 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+}
+
+/* Seta do carrossel direita — vem da direita */
+.seta-carrossel-direita {
+    animation: slideFromRightSeta 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;
+}
+
+/* Colher, botões guardar/limpar — aparecem com fade */
+.btn-colher,
+.botoes {
+    animation: fadeInFromWhite 0.6s ease 0.3s both;
+}
+
+/* Remy — começa escondido, só aparece via JS */
+.remy-container {
+    opacity: 0;
+    transform: translateX(200px);
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.remy-container.visivel {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ── Popup guardar ── */
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-overlay.escondido {
+    display: none;
+}
+
+.popup {
+    background: #FDF5E6;
+    border-radius: 20px;
+    padding: 32px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    min-width: 320px;
+}
+
+.popup h2 {
+    font-family: 'Caveat', cursive;
+    font-size: 26px;
+    color: #3C282A;
+    text-align: center;
+}
+
+.popup input {
+    width: 100%;
+    padding: 10px 16px;
+    border: 2px solid #EF7D2C;
+    border-radius: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    color: #3C282A;
+    outline: none;
+    text-align: center;
+}
+
+.popup-botoes {
+    display: flex;
+    gap: 12px;
+}
+
+.popup-botoes button {
+    padding: 10px 28px;
+    border: none;
+    border-radius: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn-confirmar {
+    background: #EF7D2C;
+    color: white;
+}
+
+.btn-cancelar {
+    background: #e0d5c5;
+    color: #3C282A;
+}
+
+/* ── Transição deslize para cima ── */
+.transicao-galeria {
+    position: fixed;
+    top: 100vh;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/fundo2.png') center/cover;
+    z-index: 400;
+    transition: top 0.6s cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+.transicao-galeria.ativa {
+    top: 0;
+}
+
+/* ── Botões topo direito ── */
+.botoes-topo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 50;
+}
+
+.btn-topo {
+    width: 44px;
+    height: 44px;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.btn-topo:hover {
+    transform: scale(1.1);
+}
+
+.btn-topo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* ── Popup info ── */
+.popup-info-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(3px);
+}
+
+.popup-info-overlay.escondido {
+    display: none;
+}
+
+.popup-info {
+    background: #FDF6EC;
+    border-radius: 20px;
+    padding: 36px 40px;
+    max-width: 420px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+}
+
+.btn-fechar-info {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #8B3A2A;
+    line-height: 1;
+}
+
+.popup-info-conteudo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.info-tag {
+    font-size: 11px;
+    color: #EF7D2C;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.info-titulo {
+    font-family: 'Caveat', cursive;
+    font-size: 32px;
+    color: #8B3A2A;
+    line-height: 1;
+    margin: 0;
+}
+
+.info-subtitulo {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: -4px;
+}
+
+.info-descricao {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.6;
+    margin-top: 4px;
+}
+
+.info-divider {
+    height: 1px;
+    background: #e0cfc0;
+    margin: 8px 0;
+}
+
+.info-curso {
+    font-size: 13px;
+    font-weight: 600;
+    color: #3C282A;
+}
+
+.info-universidade {
+    font-size: 12px;
+    color: #888;
+    margin-top: -4px;
+}
+
+.info-docentes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.info-docentes-titulo {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #EF7D2C;
+    font-weight: 600;
+}
+
+.info-docentes p {
+    font-size: 12px;
+    color: #555;
+    line-height: 1.5;
+}
+
+.info-docentes span {
+    color: #aaa;
+    font-size: 11px;
+}
+
+.info-docentes a {
+    color: #8B3A2A;
+    text-decoration: none;
+    font-size: 11px;
+}
+
+.info-docentes a:hover {
+    text-decoration: underline;
+}
+
+#sinal-mistura {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 12;
+}
+
+.anel-mistura {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    top: 37%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    animation: rodarMistura 5s linear infinite;
+}
+
+.seta-circular {
+    position: absolute;
+    width: 58px;
+    height: 58px;
+    border: 5px solid rgba(255,255,255,0.45);
+    border-color: rgba(255,255,255,0.45) transparent transparent transparent;
+    border-radius: 50%;
+}
+
+.seta-circular::after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    right: -8px;
+    width: 14px;
+    height: 14px;
+    border-top: 5px solid rgba(255,255,255,0.45);
+    border-right: 5px solid rgba(255,255,255,0.45);
+    transform: rotate(95deg);
+}
+
+/* seta da frente */
+.seta1 {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) rotate(20deg);
+}
+
+/* seta atrás */
+.seta2 {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) rotate(200deg);
+}
+
+@keyframes rodarMistura {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}

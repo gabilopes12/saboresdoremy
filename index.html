@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabores do Remy</title>
+    <link rel="stylesheet" href="css/introStyle.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/galeriaStyle.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&family=Caveat:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECÇÃO INTRO                              -->
+<!-- ══════════════════════════════════════════ -->
+<section id="secao-intro">
+
+    <!-- Fundo desfocado -->
+    <div class="bg-azulejos"></div>
+    <img src="images/mesa.png" alt="" class="bg-bancada">
+    <img src="images/panela.png" alt="" class="bg-panela">
+
+    <video class="video-pegadas" id="video-pegadas" autoplay muted playsinline>
+        <source src="images/animacoes/pegadasRemy.mp4" type="video/mp4">
+    </video>
+
+    <!-- Título -->
+    <div class="titulo" id="titulo">
+        <img src="images/titulo.png" alt="Sabores do Remy">
+    </div>
+
+    <!-- Silhueta do Remy -->
+    <img src="images/remySilhueta.png" alt="" class="remy-silhueta" id="remy-silhueta">
+
+    <!-- Botão play -->
+    <div class="btn-wrapper" id="btn-wrapper">
+        <button class="btn-play" id="btn-play">
+            <img src="images/botaoPlay.png" alt="Jogar">
+        </button>
+    </div>
+
+    <!-- Camada escura com canvas da lanterna -->
+    <div class="escuridao" id="escuridao">
+        <canvas id="canvas-lanterna"></canvas>
+        <div class="texto-misterio" id="texto-misterio">
+            <p class="texto-principal">Dizem que os melhores chefs<br>escondem os seus segredos...</p>
+            <p class="texto-aviso">Experiência pensada para computador</p>
+        </div>
+    </div>
+
+    <!-- Flash de revelação -->
+    <div class="flash" id="flash"></div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECÇÃO JOGO                               -->
+<!-- ══════════════════════════════════════════ -->
+<section id="secao-jogo" class="secao-escondida">
+
+    <!-- Fundo azulejos -->
+    <div class="azulejos"></div>
+
+    <!-- Bancada -->
+    <img src="images/mesa.png" alt="" class="bancada">
+
+    <!-- Barra temperos esquerda -->
+    <div class="barra-temperos">
+        <div class="tempero item-arrastavel" data-id="sal" draggable="true">
+            <img src="images/temperos/sal.png" alt="Sal" draggable="false">
+        </div>
+        <div class="tempero item-arrastavel" data-id="oregaos" draggable="true">
+            <img src="images/temperos/oregaos.png" alt="Orégãos" draggable="false">
+        </div>
+        <div class="tempero item-arrastavel" data-id="pimenta" draggable="true">
+            <img src="images/temperos/pimenta.png" alt="Pimenta" draggable="false">
+        </div>
+    </div>
+
+    <!-- Colher -->
+    <button class="btn-colher" id="btn-colher" disabled>
+        <img src="images/botoes/colher-inativa.png" alt="Misturar" id="img-colher">
+    </button>
+
+    <!-- Panela central -->
+    <div class="panela-container">
+        <div class="panela" id="panela">
+            <img src="images/panela.png" alt="Panela" draggable="false">
+            <canvas id="canvas-panela"></canvas>
+            <div id="hitbox-panela"></div>
+            <div id="ingredientes-na-panela"></div>
+        </div>
+    </div>
+
+    <!-- Botões guardar e limpar -->
+    <div class="botoes">
+        <button class="btn-guardar" id="btn-guardar">
+            <img src="images/botoes/guardar-inativo.png" alt="Guardar" id="img-guardar">
+        </button>
+        <button class="btn-limpar" id="btn-limpar">
+            <img src="images/botoes/limpar-inativo.png" alt="Limpar" id="img-limpar">
+        </button>
+    </div>
+
+    <!-- Remy -->
+    <div class="remy-container">
+        <div class="balao-container">
+            <img src="images/balao.png" alt="" class="balao-img">
+            <p class="balao-texto" id="balao-fala"></p>
+        </div>
+        <img src="images/remy/remyNeutro.png" alt="Remy" id="remy">
+    </div>
+
+    <!-- Carrossel -->
+    <div class="carrossel-container">
+        <img src="images/botoes/seta-direita.png" alt="Anterior" class="seta-carrossel-esquerda">
+        <div class="carrossel" id="carrossel">
+            <div class="ingrediente item-arrastavel" data-id="caju" draggable="true">
+                <img src="images/ingredientes/caju.png" alt="Caju" draggable="false">
+            </div>
+            <div class="ingrediente item-arrastavel" data-id="morango" draggable="true">
+                <img src="images/ingredientes/morango.png" alt="Morango" class="ingredienteM" draggable="false">
+            </div>
+            <div class="ingrediente item-arrastavel" data-id="brie" draggable="true">
+                <img src="images/ingredientes/brie.png" alt="Queijo Brie" class="ingredienteB" draggable="false">
+            </div>
+            <div class="ingrediente item-arrastavel" data-id="chocolate" draggable="true">
+                <img src="images/ingredientes/chocolate.png" alt="Chocolate" draggable="false">
+            </div>
+        </div>
+        <img src="images/botoes/seta-direita.png" alt="Mais ingredientes" class="seta-carrossel-direita">
+    </div>
+
+    <!-- Seta para galeria -->
+    <img src="images/botoes/seta-baixo.png" alt="Ver galeria" class="seta-subir">
+
+    <!-- Popup guardar -->
+    <div class="popup-overlay escondido" id="popup-overlay">
+        <div class="popup">
+            <h2>Dá um nome à tua criação!</h2>
+            <input type="text" id="popup-input" placeholder="ex: Explosão Doce" maxlength="30">
+            <div class="popup-botoes">
+                <button class="btn-cancelar" id="popup-cancelar">Cancelar</button>
+                <button class="btn-confirmar" id="popup-confirmar">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Camada de transição -->
+    <div class="transicao-galeria" id="transicao-galeria"></div>
+
+    <!-- Botões topo direito -->
+    <div class="botoes-topo">
+        <button class="btn-topo" id="btn-info">
+            <img src="images/botoes/info.png" alt="Info">
+        </button>
+    </div>
+
+    <!-- Popup info -->
+    <div class="popup-info-overlay escondido" id="popup-info-overlay">
+        <div class="popup-info">
+            <button class="btn-fechar-info" id="btn-fechar-info">✕</button>
+            <div class="popup-info-conteudo">
+                <p class="info-tag">Comunicação Multimédia · 2025/26</p>
+                <h2 class="info-titulo">Sabores do Remy</h2>
+                <p class="info-subtitulo">Projecto Semestral · 3.º Ano</p>
+                <p class="info-descricao">
+                    Uma experiência interativa inspirada no filme <em>Ratatouille</em>,
+                    onde a sinestesia do Remy ganha vida. Combina ingredientes,
+                    descobre reações visuais únicas e guarda as tuas criações.
+                </p>
+                <div class="info-divider"></div>
+                <p class="info-curso">Licenciatura em Design e Multimédia</p>
+                <p class="info-universidade">Universidade de Coimbra</p>
+                <div class="info-docentes">
+                    <p class="info-docentes-titulo">Docentes</p>
+                    <p>João Miguel Cunha <span>(Regente)</span></p>
+                    <p>Bárbara Ramos</p>
+                    <p>José Lopes</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECÇÃO GALERIA                            -->
+<!-- ══════════════════════════════════════════ -->
+<section id="secao-galeria" class="secao-escondida">
+
+    <!-- Fundo -->
+    <img src="images/fundo2.png" alt="" class="bg-galeria">
+
+    <!-- Título -->
+    <img src="images/titulo3.png" alt="Criações do Chef" class="titulo-galeria">
+
+    <!-- Botão voltar -->
+    <img src="images/botoes/seta-baixo.png" alt="Voltar" class="seta-voltar" id="seta-voltar">
+
+    <!-- Cards -->
+    <img src="images/cards.png" alt="" class="cards-bg">
+    <div class="cards-grid" id="cards-grid"></div>
+
+    <!-- Modal -->
+    <div class="modal-overlay escondido" id="modal-overlay">
+        <div class="modal-blur"></div>
+        <div class="modal-conteudo">
+            <img src="" alt="" class="modal-papel" id="modal-papel">
+            <div class="modal-elementos" id="modal-elementos">
+                <img src="" alt="" class="modal-imagem" id="modal-imagem">
+                <p class="modal-nome" id="modal-nome"></p>
+                <div class="modal-rodape">
+                    <div class="modal-icones" id="modal-icones"></div>
+                    <button class="card-partilhar" id="modal-partilhar">
+                        <img src="images/botoes/transferir.png" alt="Transferir">
+                    </button>
+                </div>
+            </div>
+            <button class="btn-fechar" id="btn-fechar">
+                <img src="images/botoes/sair.png" alt="Fechar">
+            </button>
+        </div>
+    </div>
+
+</section>
+
+<script src="js/som.js"></script>
+<script src="js/intro.js"></script>
+<script src="js/main.js"></script>
+<script src="js/galeria.js"></script>
+</body>
+</html>

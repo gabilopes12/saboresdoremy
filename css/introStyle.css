@@ -1,0 +1,309 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    cursor: default;
+}
+
+/* ── Fundo desfocado ── */
+.bg-azulejos {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background-image: url('../images/fundo.png');
+    background-size: cover;
+    background-position: center;
+    filter: blur(4px);
+    transform: scale(1.05);
+}
+
+.bg-bancada {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 82%;
+    object-fit: fill;
+    filter: blur(4px);
+    transform: scale(1.05);
+}
+
+.bg-panela {
+    position: absolute;
+    bottom: 145px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 420px;
+    filter: blur(3px);
+}
+
+/* ── Título (sempre visível, por cima da escuridão) ── */
+.titulo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    z-index: 99; /* ← muda de 101 para 99, fica ABAIXO da escuridão */
+    pointer-events: none;
+}
+
+.titulo img {
+    width: 520px;
+    max-width: 80vw;
+    object-fit: contain;
+    filter: drop-shadow(0px 4px 12px rgba(0,0,0,0.3));
+}
+
+@keyframes vapor {
+    0%   { transform: translate(-50%, -60%) translateY(0px); }
+    50%  { transform: translate(-50%, -60%) translateY(-12px); }
+    100% { transform: translate(-50%, -60%) translateY(0px); }
+}
+
+.titulo.animar {
+    animation: vapor 3s ease-in-out infinite;
+}
+
+@keyframes mistura {
+    0%   { opacity: 1; transform: translate(-50%, -60%) rotate(0deg) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -60%) rotate(720deg) scale(0); }
+}
+
+.titulo.a-sair {
+    animation: mistura 0.8s ease-in forwards;
+}
+
+/* ── Silhueta do Remy ── */
+.remy-silhueta {
+    position: absolute;
+
+    top: 44%;
+    left: 55%;
+
+    transform: translate(-50%, -50%);
+
+    width: 2vw;
+    min-width: 22px;
+    max-width: 34px;
+
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    filter: brightness(0);
+    z-index: 99;
+}
+
+.remy-silhueta.visivel {
+    opacity: 1;
+}
+
+/* ── Botão play (invisível até revelação) ── */
+.btn-wrapper {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 101;
+    transition: opacity 0.8s ease;
+}
+
+.btn-wrapper.visivel {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.btn-play {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.15s ease;
+}
+
+.btn-play:hover {
+    transform: scale(1.08);
+}
+
+.btn-play:active {
+    transform: scale(0.97);
+}
+
+.btn-play img {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+    filter: drop-shadow(0px 4px 12px rgba(0,0,0,0.4));
+}
+
+.btn-play.a-sair {
+    animation: mistura-btn 0.6s ease-in forwards;
+}
+
+@keyframes mistura-btn {
+    0%   { opacity: 1; transform: rotate(0deg) scale(1); }
+    100% { opacity: 0; transform: rotate(720deg) scale(0); }
+}
+
+/* ── Escuridão ── */
+.escuridao {
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+    pointer-events: all;
+}
+
+.escuridao.desaparecendo {
+    transition: opacity 0.6s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#canvas-lanterna {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* ── Texto misterioso ── */
+.texto-misterio {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: opacity 1.5s ease;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 110;
+}
+
+.texto-misterio.escondido {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.texto-principal {
+    font-family: 'Caveat', cursive;
+    font-size: 36px;
+    color: rgba(255, 220, 180, 0.95);
+    line-height: 1.5;
+    text-shadow: 0 0 20px rgba(255, 180, 80, 0.5);
+}
+
+.texto-aviso {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.45);
+    letter-spacing: 0.5px;
+}
+
+/* Esconde o fundo até clicar */
+.bg-azulejos,
+.bg-bancada,
+.bg-panela,
+.titulo,
+.remy-silhueta,
+#escuridao {
+    opacity: 0;
+    transition: opacity 0.7s ease;
+}
+
+.bg-azulejos.visivel,
+.bg-bancada.visivel,
+.bg-panela.visivel,
+.titulo.visivel,
+#escuridao.visivel {
+    opacity: 1;
+}
+
+#escuridao {
+    opacity: 0;
+    transition: opacity 0.2s ease; /* rápido */
+}
+
+#escuridao.visivel {
+    opacity: 1;
+}
+
+.ecra-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+.ecra-titulo {
+    font-family: 'Caveat', cursive;
+    font-size: 42px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 4px;
+}
+
+.ecra-subtitulo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.6;
+    font-style: italic;
+}
+
+.ecra-separador {
+    width: 60px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 8px 0;
+}
+
+.ecra-curso {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.6;
+}
+
+.ecra-docentes {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.ecra-docentes p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.45);
+    line-height: 1.5;
+}
+
+.video-pegadas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1000;
+    opacity: 0.6;
+    pointer-events: none;
+    mix-blend-mode: screen;
+}
+
