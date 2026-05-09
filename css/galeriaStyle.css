@@ -336,7 +336,6 @@ body {
     left: 720px;
 }
 
-/* Mais espaço entre ícones e botão partilhar no modal */
 .modal-rodape {
     display: flex;
     align-items: center;
@@ -403,8 +402,6 @@ body {
     border-radius: 50%;
     z-index: 2;
 }
-
-/* GLOW À VOLTA */
 .card-img-wrapper {
     position: relative;
     width: 100px;

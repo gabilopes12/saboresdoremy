@@ -145,7 +145,7 @@ section {
 
 .video-puff {
     position: absolute;
-    top: 60% !important;       /* era 50%, agora mais baixo */
+    top: 60% !important;
     left: 50% !important;
     width: 140% !important;
     height: 140% !important;
@@ -336,7 +336,7 @@ section {
     flex-shrink: 0;
     margin-right: 8px;
     transform: scaleX(-1); /* espelha a seta para apontar à esquerda */
-    visibility: hidden;    /* escondida no início (já estamos na pág. 1) */
+    visibility: hidden;    /* escondida no início */
 }
 
 /* Seta inferior galeria */

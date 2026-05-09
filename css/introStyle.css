@@ -48,13 +48,12 @@ body {
     filter: blur(3px);
 }
 
-/* ── Título (sempre visível, por cima da escuridão) ── */
 .titulo {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -60%);
-    z-index: 99; /* ← muda de 101 para 99, fica ABAIXO da escuridão */
+    z-index: 99;
     pointer-events: none;
 }
 

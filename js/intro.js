@@ -116,8 +116,8 @@ function diminuirSom() {
 }
 
 // ─── FADE OUT DO SUSPENSE ────────────────────────
-// Chamado assim que o Remy é detetado pela primeira vez.
-// Faz fade-out suave em 1.5s e para o som no final.
+// Remy é detetado pela primeira vez
+// Faz fade-out suave em 1.5s e para o som no final
 
 function pararSomSuspense() {
     if (somPassos.paused) return;

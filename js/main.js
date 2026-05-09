@@ -295,8 +295,6 @@ function iniciarJogo() {
 
     // ─── COLHER ──────────────────────────────────
 
-// ─── COLHER DRAGGABLE ─────────────────────────
-
     btnColher.setAttribute('draggable', true);
 
     btnColher.addEventListener('dragstart', (e) => {
@@ -501,7 +499,6 @@ function iniciarJogo() {
         });
 
         const mapa = {
-            // combinações originais
             'caju+brie': 'cajuBrie',             'brie+caju': 'cajuBrie',
             'caju+chocolate': 'cajuChocolate',   'chocolate+caju': 'cajuChocolate',
             'chocolate+brie': 'chocolateBrie',   'brie+chocolate': 'chocolateBrie',
