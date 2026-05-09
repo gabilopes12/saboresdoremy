@@ -1,10 +1,10 @@
 // ─── INICIAR GALERIA ─────────────────────────────
 
 function iniciarGaleria() {
-    const combinacoes = window.combinacoesGuardadas || [];
+    // Inverte para a mais recente aparecer primeiro
+    const combinacoes = [...(window.combinacoesGuardadas || [])].reverse();
     const grid = document.getElementById('cards-grid');
 
-    // Limpa o grid antes de recriar
     grid.innerHTML = '';
 
     const mapaIcones = {
@@ -16,7 +16,6 @@ function iniciarGaleria() {
 
     const papeis = ['papel1', 'papel2', 'papel3', 'papel4'];
 
-    // Cria 8 slots
     for (let i = 0; i < 8; i++) {
         const card = document.createElement('div');
         card.className = 'card';
@@ -88,34 +87,28 @@ function iniciarGaleria() {
     const elementos = document.getElementById('modal-elementos');
 
     const mapaAnimacoesMix = {
-
         'cajuBrie':          'cajuBrieMix',
         'cajuChocolate':     'cajuChocolateMix',
         'chocolateBrie':     'chocolateBrieMix',
         'morangoBrie':       'morangoBrieMix',
         'morangoCaju':       'cajuMorangoMix',
         'morangoChocolate':  'morangoChocolateMix',
-
         'morangoCenoura':    'morangoCenouraMix',
         'nozMorango':        'nozMorangoMix',
         'tomateMorango':     'tomateMorangoMix',
         'uvaMorango':        'uvaMorangoMix',
-
         'cenouraBrie':       'cenouraBrieMix',
         'tomateBrie':        'tomateBrieMix',
         'nozBrie':           'nozBrieMix',
         'uvaBrie':           'uvaBrieMix',
-
         'cajuTomate':        'cajuTomateMix',
         'nozCaju':           'nozCajuMix',
         'uvaCaju':           'uvaCajuMix',
         'cajuCenoura':       'cajuCenouraMix',
-
         'chocolateTomate':   'chocolateTomateMix',
         'uvaChocolate':      'uvaChocolateMix',
         'cenouraChocolate':  'cenouraChocolateMix',
         'chocolateNoz':      'chocolateNozMix',
-
         'tomateNoz':         'tomateNozMix',
         'uvaTomate':         'uvaTomateMix',
         'cenouraTomate':     'cenouraTomateMix',
@@ -179,12 +172,7 @@ function iniciarGaleria() {
             z-index: 2;
         `;
         const source = document.createElement('source');
-
-        console.log('id:', c.id, '→ mix:', mapaAnimacoesMix[c.id]);
-        console.log('card:', `images/combinacoes/${c.id}Card.png`);
-        console.log('c.id é:', JSON.stringify(c.id));
         source.src = `images/animacoes/${mapaAnimacoesMix[c.id]}.webm`;
-
         source.type = 'video/webm';
         video.appendChild(source);
 
@@ -226,7 +214,6 @@ function iniciarGaleria() {
         modalOverlay.classList.remove('escondido');
     }
 
-    // Remove listeners antigos do btn-fechar clonando
     const btnFecharNovo = btnFechar.cloneNode(true);
     btnFechar.parentNode.replaceChild(btnFecharNovo, btnFechar);
 
@@ -270,12 +257,12 @@ function iniciarGaleria() {
 
             const container = document.createElement('div');
             container.style.cssText = `
-            position: fixed;
-            top: -9999px;
-            left: -9999px;
-            width: ${dim.width}px;
-            height: ${dim.height}px;
-        `;
+                position: fixed;
+                top: -9999px;
+                left: -9999px;
+                width: ${dim.width}px;
+                height: ${dim.height}px;
+            `;
 
             const papelBig = document.createElement('img');
             papelBig.src = `images/papeis/${papel}Big.png`;
@@ -285,46 +272,46 @@ function iniciarGaleria() {
             const imgComb = document.createElement('img');
             imgComb.src = `images/combinacoes/${c.id}Card.png`;
             imgComb.style.cssText = `
-            position: absolute;
-            top: 57%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 260px;
-            height: 260px;
-            object-fit: contain;
-            border-radius: 50%;
-        `;
+                position: absolute;
+                top: 57%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 260px;
+                height: 260px;
+                object-fit: contain;
+                border-radius: 50%;
+            `;
             container.appendChild(imgComb);
 
             const nomeEl = document.createElement('p');
             nomeEl.textContent = c.nome;
             nomeEl.style.cssText = `
-            position: absolute;
-            top: 75%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: Caveat, cursive;
-            font-size: 33px;
-            font-weight: 700;
-            color: #3C282A;
-            white-space: nowrap;
-            margin: 0;
-        `;
+                position: absolute;
+                top: 75%;
+                left: 50%;
+                transform: translateX(-50%);
+                font-family: Caveat, cursive;
+                font-size: 33px;
+                font-weight: 700;
+                color: #3C282A;
+                white-space: nowrap;
+                margin: 0;
+            `;
             container.appendChild(nomeEl);
 
             const iconesEl = document.createElement('div');
             iconesEl.style.cssText = `
-            position: absolute;
-            top: 82%;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-        `;
+                position: absolute;
+                top: 82%;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                gap: 10px;
+            `;
             c.ingredientes.forEach(ing => {
                 const icone = document.createElement('img');
                 icone.src = `images/icones/${mapaIcones[ing] || ing}.png`;
-                icone.style.cssText = ' height: 50px; object-fit: contain; border-radius: 0; flex-shrink: 0;';
+                icone.style.cssText = 'height: 50px; object-fit: contain; border-radius: 0; flex-shrink: 0;';
                 iconesEl.appendChild(icone);
             });
             container.appendChild(iconesEl);
