@@ -8,6 +8,7 @@ const btnWrapper = document.getElementById('btn-wrapper');
 const btnPlay = document.getElementById('btn-play');
 const somPassos = new Audio('sons/suspense.wav');
 somPassos.volume = 0.7;
+somPassos.loop = true;
 
 let mouseX = window.innerWidth / 2;
 let mouseY = window.innerHeight / 2;
@@ -234,6 +235,13 @@ function iniciarLanterna() {
         }, 1500);
     }, DELAY_LANTERNA);
 
+    // Se o Remy não for encontrado em 30s, revela automaticamente
+    setTimeout(() => {
+        if (!revelado) {
+            revelar();
+        }
+    }, 30000);
+
     desenhar();
 }
 
@@ -276,7 +284,7 @@ function desenhar() {
                 remyDetectado = true;
                 suspenseDiminuido = true;
                 // Fade-out completo do suspense quando o Remy é detetado
-                pararSomSuspense();
+                //pararSomSuspense();
                 // Arrancar o som ambiente
                 if (audioBuffer) {
                     tocarSom();
@@ -304,6 +312,8 @@ function desenhar() {
 function revelar() {
     if (revelado) return;
     revelado = true;
+
+    pararSomSuspense();
 
     remySilhueta.classList.remove('visivel');
     remySilhueta.style.display = 'none';

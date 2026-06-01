@@ -1,7 +1,6 @@
 // ─── INICIAR GALERIA ─────────────────────────────
 
 function iniciarGaleria() {
-    // Inverte para a mais recente aparecer primeiro
     const combinacoes = [...(window.combinacoesGuardadas || [])].reverse();
     const grid = document.getElementById('cards-grid');
 
@@ -60,6 +59,15 @@ function iniciarGaleria() {
                 partilharCard(c, papel);
             });
             rodape.appendChild(btnPartilhar);
+
+            const btnImprimir = document.createElement('button');
+            btnImprimir.className = 'card-partilhar';
+            btnImprimir.innerHTML = `<img src="images/botoes/imprimir.png" alt="Imprimir">`;
+            btnImprimir.addEventListener('click', (e) => {
+                e.stopPropagation();
+                imprimirCarimbo(c);
+            });
+            rodape.appendChild(btnImprimir);
             card.appendChild(rodape);
 
             card.addEventListener('click', () => {
@@ -211,6 +219,7 @@ function iniciarGaleria() {
         });
 
         document.getElementById('modal-partilhar').onclick = () => partilharCard(c, papel);
+        document.getElementById('modal-imprimir').onclick = () => imprimirCarimbo(c);
         modalOverlay.classList.remove('escondido');
     }
 
@@ -346,5 +355,77 @@ function iniciarGaleria() {
         } catch (err) {
             console.error('Erro:', err);
         }
+    }
+
+    // ── Imprimir carimbo ──
+    function imprimirCarimbo(c) {
+        const janelaImpressao = window.open('', '_blank');
+        janelaImpressao.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Carimbo — ${c.nome}</title>
+                <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+                <style>
+                    * { margin: 0; padding: 0; box-sizing: border-box; }
+                    body {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        height: 100vh;
+                        background: white;
+                        font-family: 'Poppins', sans-serif;
+                    }
+                    .carimbo-wrapper {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        gap: 24px;
+                    }
+                    .carimbo {
+                        width: 280px;
+                        height: 280px;
+                        border: 2px dashed #999;
+                        border-radius: 50%;
+                        object-fit: contain;
+                        filter: grayscale(1) contrast(2) invert(1);
+                    }
+                    .instrucoes {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 6px;
+                        max-width: 320px;
+                    }
+                    .instrucoes p {
+                        font-size: 13px;
+                        color: #444;
+                        line-height: 1.5;
+                    }
+                    .instrucoes .titulo {
+                        font-family: 'Caveat', cursive; font-size: 22px; font-weight: 700;
+                        color: #222;
+                        margin-bottom: 2px;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="carimbo-wrapper">
+                    <img class="carimbo" src="${window.location.origin}/images/combinacoes/${c.id}Card.png" alt="${c.nome}">
+                    <div class="instrucoes">
+                        <p class="titulo">Como fazer o teu carimbo:</p>
+                        <p>1. Imprime e recorta a forma pelo tracejado</p>
+                        <p>2. Contorna as formas em papel EVA e recorta</p>
+                        <p>3. Cola as formas num pedaço de cartão como base com uma pega</p>
+                        <p>4. Mergulha em tinta e pressiona sobre papel</p>
+                    </div>
+                </div>
+                <script>
+                    window.onload = () => { window.print(); }
+                <\/script>
+            </body>
+            </html>
+        `);
+        janelaImpressao.document.close();
     }
 }

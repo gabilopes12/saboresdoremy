@@ -127,36 +127,46 @@ body {
 }
 
 /* ── Linha ícones + partilhar ── */
-.card-rodape {
+.card-rodape,
+.modal-rodape{
     position: relative;
     display: flex;
     align-items: center;
-    gap: 25px;
+    gap: 2px;
     z-index: 1;
 }
 
-.card-icones {
+.card-icones,
+.modal-icones {
     display: flex;
-    gap: 4px;
+    gap: 2px;
     align-items: center;
+    margin-right: 8px;
 }
 
-.card-icones img {
+.card-icones img,
+.modal-icones img {
     width: 30px;
     height: 30px;
     object-fit: contain;
 }
 
-.card-partilhar {
+.card-partilhar,
+#modal-partilhar,
+#modal-imprimir {
     background: none;
     border: none;
     cursor: pointer;
     padding: 2px;
     opacity: 0.7;
     transition: opacity 0.15s;
+    display: flex;
+    align-items: center;
 }
 
-.card-partilhar:hover {
+.card-partilhar:hover,
+#modal-partilhar:hover,
+#modal-imprimir:hover {
     opacity: 1;
 }
 
@@ -339,7 +349,7 @@ body {
 .modal-rodape {
     display: flex;
     align-items: center;
-    gap: 50px;
+    gap: 10px;
 }
 
 /* Ícones + partilhar das últimas cards mais à direita */
@@ -364,9 +374,11 @@ body {
 }
 
 /* Botão partilhar maior no modal */
-#modal-partilhar img {
-    width: 35px;
-    height: 35px;
+#modal-partilhar img,
+#modal-imprimir img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
 }
 
 /* Ícones + partilhar das últimas cards mais à direita */

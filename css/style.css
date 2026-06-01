@@ -750,47 +750,19 @@ section {
     animation: rodarMistura 5s linear infinite;
 }
 
-.seta-circular {
-    position: absolute;
-    width: 58px;
-    height: 58px;
-    border: 5px solid rgba(255,255,255,0.45);
-    border-color: rgba(255,255,255,0.45) transparent transparent transparent;
-    border-radius: 50%;
-}
-
-.seta-circular::after {
-    content: '';
-    position: absolute;
-    top: 1px;
-    right: -8px;
-    width: 14px;
-    height: 14px;
-    border-top: 5px solid rgba(255,255,255,0.45);
-    border-right: 5px solid rgba(255,255,255,0.45);
-    transform: rotate(95deg);
-}
-
-/* seta da frente */
 .seta1 {
     top: 0;
     left: 50%;
-    transform: translateX(-50%) rotate(20deg);
+    transform: translateX(-50%) rotate(250deg);
 }
 
-/* seta atrás */
 .seta2 {
     bottom: 0;
     left: 50%;
-    transform: translateX(-50%) rotate(200deg);
+    transform: translateX(-50%) rotate(70deg);
 }
 
 @keyframes rodarMistura {
-    from {
-        transform: translate(-50%, -50%) rotate(0deg);
-    }
-
-    to {
-        transform: translate(-50%, -50%) rotate(360deg);
-    }
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to   { transform: translate(-50%, -50%) rotate(-360deg); } /* era 360deg, agora -360deg */
 }
