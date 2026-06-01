@@ -358,74 +358,86 @@ function iniciarGaleria() {
     }
 
     // ── Imprimir carimbo ──
-    function imprimirCarimbo(c) {
+    async function imprimirCarimbo(c) {
+        // Converte imagem para base64 para evitar problemas de CORS
+        const resposta = await fetch(`images/combinacoes/${c.id}Card.png`);
+        const blob = await resposta.blob();
+        const base64 = await new Promise(res => {
+            const reader = new FileReader();
+            reader.onload = () => res(reader.result);
+            reader.readAsDataURL(blob);
+        });
+
         const janelaImpressao = window.open('', '_blank');
         janelaImpressao.document.write(`
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>Carimbo — ${c.nome}</title>
-                <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
-                <style>
-                    * { margin: 0; padding: 0; box-sizing: border-box; }
-                    body {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: center;
-                        height: 100vh;
-                        background: white;
-                        font-family: 'Poppins', sans-serif;
-                    }
-                    .carimbo-wrapper {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        gap: 24px;
-                    }
-                    .carimbo {
-                        width: 280px;
-                        height: 280px;
-                        border: 2px dashed #999;
-                        border-radius: 50%;
-                        object-fit: contain;
-                        filter: grayscale(1) contrast(2) invert(1);
-                    }
-                    .instrucoes {
-                        display: flex;
-                        flex-direction: column;
-                        gap: 6px;
-                        max-width: 320px;
-                    }
-                    .instrucoes p {
-                        font-size: 13px;
-                        color: #444;
-                        line-height: 1.5;
-                    }
-                    .instrucoes .titulo {
-                        font-family: 'Caveat', cursive; font-size: 22px; font-weight: 700;
-                        color: #222;
-                        margin-bottom: 2px;
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="carimbo-wrapper">
-                    <img class="carimbo" src="${window.location.origin}/images/combinacoes/${c.id}Card.png" alt="${c.nome}">
-                    <div class="instrucoes">
-                        <p class="titulo">Como fazer o teu carimbo:</p>
-                        <p>1. Imprime e recorta a forma pelo tracejado</p>
-                        <p>2. Contorna as formas em papel EVA e recorta</p>
-                        <p>3. Cola as formas num pedaço de cartão como base com uma pega</p>
-                        <p>4. Mergulha em tinta e pressiona sobre papel</p>
-                    </div>
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Carimbo — ${c.nome}</title>
+            <style>
+                * { margin: 0; padding: 0; box-sizing: border-box; }
+                body {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    min-height: 100vh;
+                    background: white;
+                    padding: 40px;
+                }
+                .carimbo-wrapper {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 24px;
+                }
+                .carimbo {
+                    width: 300px;
+                    height: 300px;
+                    border: 2px dashed #999;
+                    border-radius: 50%;
+                    object-fit: contain;
+                    filter: grayscale(1) contrast(2) invert(1);
+                }
+                .titulo-carimbo {
+                    font-family: 'Caveat', cursive;
+                    font-size: 22px;
+                    color: #3C282A;
+                }
+                .instrucoes {
+                    font-family: sans-serif;
+                    font-size: 14px;
+                    color: #444;
+                    line-height: 2;
+                    text-align: left;
+                }
+                .instrucoes h3 {
+                    font-family: 'Caveat', cursive;
+                    font-size: 20px;
+                    margin-bottom: 8px;
+                    color: #3C282A;
+                }
+                @media print {
+                    .instrucoes { display: none; }
+                }
+            </style>
+        </head>
+        <body>
+            <div class="carimbo-wrapper">
+                <img class="carimbo" src="${base64}" alt="${c.nome}">
+                <p class="titulo-carimbo">${c.nome}</p>
+                <div class="instrucoes">
+                    <h3>Como fazer o teu carimbo:</h3>
+                    1. Imprime e recorta a forma pelo tracejado<br>
+                    2. Contorna as formas em papel EVA e recorta<br>
+                    3. Cola as formas num pedaço de cartão como base com uma pega<br>
+                    4. Mergulha em tinta e pressiona sobre papel
                 </div>
-                <script>
-                    window.onload = () => { window.print(); }
-                <\/script>
-            </body>
-            </html>
-        `);
+            </div>
+            <script>window.onload = () => window.print();<\/script>
+        </body>
+        </html>
+    `);
         janelaImpressao.document.close();
     }
 }
