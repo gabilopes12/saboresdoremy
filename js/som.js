@@ -54,7 +54,7 @@ carregarSom('sons/salvar.mp3').then(b => salvarBuffer = b);
 carregarSom('sons/guardar.mp3').then(b => guardarBuffer = b);
 carregarSom('sons/limpar.mp3').then(b => limparBuffer = b);
 
-function tocarSomSalvar() { tocarBuffer(salvarBuffer, 0.7); }
+function tocarSomSalvar() { tocarBuffer(salvarBuffer, 0.3); }
 function tocarSomGuardar() { tocarBuffer(guardarBuffer, 0.7); }
 function tocarSomLimpar() { tocarBuffer(limparBuffer, 0.7); }
 
