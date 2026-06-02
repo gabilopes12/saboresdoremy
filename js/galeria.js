@@ -218,8 +218,16 @@ function iniciarGaleria() {
             video.currentTime = 0;
         });
 
-        document.getElementById('modal-partilhar').onclick = () => partilharCard(c, papel);
-        document.getElementById('modal-imprimir').onclick = () => imprimirCarimbo(c);
+        const btnPartilhar = document.getElementById('modal-partilhar');
+        const btnPartilharNovo = btnPartilhar.cloneNode(true);
+        btnPartilhar.parentNode.replaceChild(btnPartilharNovo, btnPartilhar);
+        btnPartilharNovo.addEventListener('click', () => partilharCard(c, papel));
+
+        const btnImprimir = document.getElementById('modal-imprimir');
+        const btnImprimirNovo = btnImprimir.cloneNode(true);
+        btnImprimir.parentNode.replaceChild(btnImprimirNovo, btnImprimir);
+        btnImprimirNovo.addEventListener('click', () => imprimirCarimbo(c));
+
         modalOverlay.classList.remove('escondido');
     }
 
