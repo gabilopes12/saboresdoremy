@@ -413,6 +413,26 @@ function iniciarJogo() {
                 });
             }
 
+            // ── Vídeo do tempero ──
+            if (temperosAtivos.length > 0) {
+                const mapaAnimacoesTemperos = {
+                    'sal': 'sal',
+                    'pimenta': 'pimentaPreta',
+                    'oregaos': 'oregaos'
+                };
+                const idTempero = mapaAnimacoesTemperos[temperosAtivos[0]];
+                const videoTempero = criarVideoAnimacao(idTempero, 10);
+                panela.appendChild(videoTempero);
+                videoTempero.load();
+                videoTempero.play().catch(err => console.log('Erro tempero:', err));
+
+                panela.addEventListener('puff-iniciado', () => {
+                    videoTempero.style.transition = 'opacity 0.5s';
+                    videoTempero.style.opacity = '0';
+                    setTimeout(() => videoTempero.remove(), 500);
+                });
+            }
+
             const videoRef = video1 || video0;
             const antecipacaoSegundos = 0.6;
 
@@ -832,6 +852,9 @@ function iniciarJogo() {
 
         divReais.innerHTML = '';
         divReais.classList.remove('escondido');
+
+        const videoTemperoAtivo = document.getElementById('video-tempero-ativo');
+        if (videoTemperoAtivo) videoTemperoAtivo.remove();
 
         document.querySelectorAll('.video-animacao').forEach(v => v.remove());
         document.querySelectorAll('.imagem-combinacao').forEach(v => v.remove());
